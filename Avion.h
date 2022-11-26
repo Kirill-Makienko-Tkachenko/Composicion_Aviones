@@ -75,6 +75,11 @@ void Avion::setCambiaHoras(float H){
     modelo.setHorasVuelo(H);
 }
 
+void Avion::setNombre(string H){
+    nombre = H;    
+}
+
+
 void Avion::imprimeAvion(){
     cout << nombre << " " << matricula << " ";
     modelo.imprimeModelo();

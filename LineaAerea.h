@@ -4,28 +4,40 @@ Kirill Makienko Tkachenko
 Composiciones de clases
 */
 
+/*
+Notas miscelaneas
+
+-para importar un tipo de archivo de texto lo debo de declarar como ifstream, por ejemplo, ifstream MiArchivo;
+-\t tabulador
+
+*/
+
 #include<iostream>
 #include<string>
-#pragma once
+
 #include"Avion.h"
+#ifndef LINEAAEREA_H
+#define LINEAAEREA_H // Estos 2 comandos son iguales a pragma once, nomas que este si universal
 using namespace std;
 
+
+const int I = 5;
 class LineaAerea{
 // Vamos a declarar los parametros del objeto
     string identificador, nombre, pais;
     int flotilla;
-    Avion avion; //Falta importar este tipo de dato como array
+    Avion avion[I]; //Falta importar este tipo de dato como array
 
     public:
 // Contructores y destructores
     LineaAerea(); // Constructor
-    LineaAerea(string,string,string,int, Avion);
+    LineaAerea(string,string,string,int, Avion[]);
     ~LineaAerea();
 //getter
     string getIdentificador();
     string getNombre();
     string getPais();
-    string getNMatricula(); //Obtener matricula de avion.h
+    string getNMatricula(int); //Obtener matricula de avion.h
     int getFlotilla();
 //setter
     void setIdentificador(string);
@@ -43,12 +55,18 @@ LineaAerea::LineaAerea(){
     nombre = "";
     pais = "";
     flotilla = 0;
+    //for(int i = 0; i<I; i++){ // Escencialmente este for es para que no solo llame al constructor por omision de la clase Avion, y que este ponga el nombre de la aerolinea como nombre de avion
+    //    avion[i].setNombre(nombre); 
+    //} // Este loop no sirve, no tengo idea de porque ni tengo el tiempo de averiguarlo
 }
-LineaAerea::LineaAerea(string identificador, string nombre, string pais, int flotilla, Avion avion){
+LineaAerea::LineaAerea(string identificador, string nombre, string pais, int flotilla, Avion avion[I]){
     this -> identificador = identificador;
     this -> nombre = nombre;
     this -> pais = pais;
     this -> flotilla = flotilla;
+    for(int i = 0; i<I; i++){ // Voy a intentar abrir una interaccion con el usuario para saber como se hace
+        this -> avion[i].setNombre(nombre);
+    } // Este loop no sirve, no tengo idea de porque
 }
 LineaAerea::~LineaAerea(){}
 // Definir getters
@@ -65,8 +83,9 @@ string LineaAerea::getPais(){
 int LineaAerea::getFlotilla(){
     return flotilla;
 }
-string LineaAerea::getNMatricula(){
-    return avion.getMatricula();
+
+string LineaAerea::getNMatricula(int H){
+    return avion[H].getMatricula();
 }
 
 // Definir setter
@@ -84,6 +103,17 @@ void LineaAerea::setFlotilla(int flotilla){
     this -> flotilla = flotilla;
 }
 void LineaAerea::imprimeLineaAerea(){
-    cout << identificador << " " << nombre << " " << pais << "";
-    avion.imprimeAvion();
+    cout << identificador << " " << nombre << " " << pais << ""; 
+   for(int i = 0; i<I; i++){ // Voy a intentar abrir una interaccion con el usuario para saber como se hace
+        avion[i].imprimeAvion();
+    }
 }
+
+
+
+
+
+
+
+
+#endif // Para cerrar el ifndef
